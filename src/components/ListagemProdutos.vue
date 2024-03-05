@@ -9,15 +9,21 @@ onMounted(async () => {
 });
 
 const formatPrice = (price) => `R$ ${price.toFixed(2).replace('.', ',')}`;
+import { useScreen } from '@/composables/screen';
+
+const { browserWidth, deviceWidth, isMobile } = useScreen();
 </script>
 
 <template>
     <div>
-      <h1 class="produtos">Produtos</h1>
+      <h1 class="produtos">Produtos - {{ browserWidth }} - {{ deviceWidth }} - {{
+      isMobile}} 
+      <span v-if="isMobile"> É mobile</span>
+      </h1>
       <div class="container">
         <div class="card" v-for="produto in produtos" :key="produto.id">
-          <h1 class="card--title">{{ produto.title }}</h1>
-          <p>{{ produto.description }}</p>
+          <h1 class="card--title">{{ produto.title }}
+          </h1>
           <p>{{ formatPrice(produto.price) }}</p>
           <img class="card--avatar" :src="produto.image" :alt="produto.title" />
         </div>
